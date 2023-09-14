@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:merit_calculator/provider/aggregate_provider.dart';
-import 'package:merit_calculator/utils/app_color.dart';
 import 'package:merit_calculator/utils/utils.dart';
+import 'package:merit_calculator/view/components/info_tile.dart';
 import 'package:provider/provider.dart';
 
 class FilteredCollegesScreen extends StatelessWidget {
@@ -10,7 +10,8 @@ class FilteredCollegesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final aggregateProvider = Provider.of<AggregateProvider>(context);
-    final filteredColleges = Utils.getCollegesByAggregate(aggregateProvider.totalAggregate);
+    final filteredColleges =
+        Utils.getCollegesByAggregate(aggregateProvider.totalAggregate);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -23,10 +24,9 @@ class FilteredCollegesScreen extends StatelessWidget {
             Expanded(
               child: Column(
                 children: [
-                  ListTile(
-                    tileColor: AppColor.tileColor,
-                    leading: const Icon(Icons.label_important),
-                    title: const Text('These colleges are shown after comparing your current aggregate with last year closing merit. Its just an estimation for comparison with last year.'),
+                  InfoTile(
+                    info:
+                        'These colleges are shown after comparing your current aggregate with last year closing merit. Its just an estimation for comparison with last year.',
                   ),
                   Expanded(
                     child: ListView.builder(
@@ -34,9 +34,12 @@ class FilteredCollegesScreen extends StatelessWidget {
                       itemCount: filteredColleges.length,
                       itemBuilder: (BuildContext context, int index) {
                         return ListTile(
-                          leading: CircleAvatar(child: Text('${index + 1}'),),
+                          leading: CircleAvatar(
+                            child: Text('${index + 1}'),
+                          ),
                           title: Text(filteredColleges[index].name),
-                          subtitle: Text("Merit: ${filteredColleges[index].merit}"),
+                          subtitle:
+                              Text("Merit: ${filteredColleges[index].merit}"),
                         );
                       },
                     ),
@@ -47,9 +50,9 @@ class FilteredCollegesScreen extends StatelessWidget {
           else
             Center(
               child: Text(
-                'No colleges found for this aggregate. \nKeep working hard.',
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.titleMedium
+                  'No colleges found for this aggregate. \nKeep working hard.',
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.titleMedium
               ),
             ),
         ],
