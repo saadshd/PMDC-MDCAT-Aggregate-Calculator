@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:merit_calculator/provider/aggregate_provider.dart';
+import 'package:merit_calculator/utils/utils.dart';
 import 'package:merit_calculator/view/components/aggregate_container.dart';
 import 'package:merit_calculator/view/filtered_colleges_screen.dart';
 import 'package:merit_calculator/view/components/popup_menu_button.dart';
@@ -36,6 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   const SizedBox(height: 10,),
                   TextFormField(
                     controller: aggregateProvider.matricController,
+                    focusNode: aggregateProvider.matricFocusNode,
                     keyboardType: TextInputType.number,
                     decoration: InputDecoration(
                       labelText: 'MATRIC Marks',
@@ -53,10 +55,14 @@ class _HomeScreenState extends State<HomeScreen> {
                       }
                       return null;
                     },
+                    onFieldSubmitted: (value){
+                      Utils.fieldFocusChange(context, aggregateProvider.matricFocusNode, aggregateProvider.fscFocusNode);
+                    },
                   ),
                   const SizedBox(height: 20,),
                   TextFormField(
                     controller: aggregateProvider.fscController,
+                    focusNode: aggregateProvider.fscFocusNode,
                     keyboardType: TextInputType.number,
                     decoration: InputDecoration(
                       labelText: 'FSC Marks',
@@ -74,10 +80,14 @@ class _HomeScreenState extends State<HomeScreen> {
                       }
                       return null;
                     },
+                    onFieldSubmitted: (value){
+                      Utils.fieldFocusChange(context, aggregateProvider.fscFocusNode, aggregateProvider.mdcatFocusNode);
+                    },
                   ),
                   const SizedBox(height: 20,),
                   TextFormField(
                     controller: aggregateProvider.mdcatController,
+                    focusNode: aggregateProvider.mdcatFocusNode,
                     keyboardType: TextInputType.number,
                     decoration: InputDecoration(
                       labelText: 'MDCAT Marks',

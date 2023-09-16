@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 
 class AggregateProvider with ChangeNotifier {
-
   final matricController = TextEditingController();
   final fscController = TextEditingController();
   final mdcatController = TextEditingController();
+  FocusNode matricFocusNode = FocusNode();
+  FocusNode fscFocusNode = FocusNode();
+  FocusNode mdcatFocusNode = FocusNode();
   final formKey = GlobalKey<FormState>();
 
   double matric = 0.0;
@@ -14,9 +16,13 @@ class AggregateProvider with ChangeNotifier {
   bool resultsVisible = false;
 
   double get matricAggregate => (matric * 10) / 1100;
+
   double get fscAggregate => (fsc * 40) / 1100;
+
   double get mdcatAggregate => (mdcat * 50) / 200;
+
   double get totalAggregate => matricAggregate + fscAggregate + mdcatAggregate;
+
   bool get showResults => _showResults;
 
   void toggleShowResults() {
@@ -24,25 +30,24 @@ class AggregateProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void updateMatric(){
+  void updateMatric() {
     matric = double.tryParse(matricController.text) ?? 0.0;
     notifyListeners();
   }
 
-  void updateFsc(){
+  void updateFsc() {
     fsc = double.tryParse(fscController.text) ?? 0.0;
     notifyListeners();
   }
 
-  void updateMdcat(){
+  void updateMdcat() {
     mdcat = double.tryParse(mdcatController.text) ?? 0.0;
     notifyListeners();
   }
 
-  void reset(){
+  void reset() {
     matricController.text = '';
     fscController.text = '';
     mdcatController.text = '';
   }
-
 }
